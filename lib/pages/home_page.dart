@@ -189,14 +189,17 @@ class _HomePageState extends State<HomePage> {
                 width: screenSize.width,
                 padding: EdgeInsets.all(16),
                 alignment: Alignment.bottomRight,
-                child: Text(
-                  '$number1$operand$number2'.isEmpty
-                      ? "0"
-                      : '$number1$operand$number2'.trim(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 50),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    '$number1$operand$number2'.isEmpty
+                        ? "0"
+                        : '$number1$operand$number2'.trim(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 50),
+                  ),
                 ),
               ),
             ),
