@@ -11,10 +11,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String number1 = '';
+  String operand = '';
+  String number2 = '';
+
   @override
   Widget build(BuildContext context) {
-
     final screenSize = MediaQuery.of(context).size;
+
+    void appendValue(value) {
+      if (![Btn.del, Btn.clr, Btn.calculate].contains(value)) {
+        if (value != Btn.dot && int.tryParse(value) == null) {
+          // if (operand.isNotEmpty && number2.isNotEmpty) {}
+          operand = value;
+        } else if (number1.isEmpty || operand.isEmpty) {
+          if (value == Btn.dot && number1.contains(Btn.dot)) return;
+          if (value == Btn.dot && number1.isEmpty || number1 == Btn.n0) {
+            value = '0.';
+          }
+          number1 += value;
+        } else if (number2.isEmpty || operand.isNotEmpty) {
+          if (value == Btn.dot && number2.contains(Btn.dot)) return;
+          if (value == Btn.dot && number2.isEmpty || number2 == Btn.n0) {
+            value = '0.';
+          }
+          number2 += value;
+        }
+      }
+    }
+
+    void delete() {
+      if (number2.isNotEmpty) {
+        number2 = number2.substring(0, number2.length - 1);
+        return;
+      } else if (number2.isEmpty && operand.isEmpty && number1.isNotEmpty) {
+        number1 = number1.substring(0, number1.length - 1);
+        return;
+      } else if (number2.isEmpty && operand.isNotEmpty) {
+        operand = '';
+        return;
+      }
+      ;
+    }
+
+    void onButtonTap(value) {
+      setState(() {
+        appendValue(value);
+        if (value == Btn.del) {
+          delete();
+          return;
+        } else if (value == Btn.clr) {
+          number1 = '';
+          number2 = '';
+          operand = '';
+          return;
+        } else if (value == Btn.calculate) {
+        }
+      });
+    }
 
     Widget buildButtton(value) {
       return Padding(
@@ -32,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () => onButtonTap(value),
             child: Center(
               child: Text(
                 value,
@@ -66,7 +120,9 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.all(16),
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  '0'*10,
+                  '$number1$operand$number2'.isEmpty
+                      ? "0"
+                      : '$number1$operand$number2'.trim(),
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
