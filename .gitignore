@@ -3,3 +3,6 @@
 build
 test
 .vscode
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
