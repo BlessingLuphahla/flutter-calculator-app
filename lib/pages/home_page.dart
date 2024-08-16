@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+
     final screenSize = MediaQuery.of(context).size;
 
     Widget buildButtton(value) {
@@ -35,7 +36,11 @@ class _HomePageState extends State<HomePage> {
             child: Center(
               child: Text(
                 value,
-                style: TextStyle(fontSize: 20, color: const Color.fromARGB(255, 255, 255, 255)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                ),
               ),
             ),
           ),
@@ -47,6 +52,7 @@ class _HomePageState extends State<HomePage> {
       drawer: ReddDrawer(),
       appBar: AppBar(
         title: const Text('REDD AXE'),
+        toolbarHeight: 110,
         centerTitle: true,
       ),
       body: SafeArea(
@@ -60,12 +66,11 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.all(16),
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  "0" * 2,
-                  textAlign: TextAlign.end,
+                  '0'*10,
                   style: TextStyle(
-                      fontSize: 48,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255)),
+                      fontSize: 50),
                 ),
               ),
             ),
@@ -73,7 +78,9 @@ class _HomePageState extends State<HomePage> {
               children: Btn.buttonValues
                   .map(
                     (value) => SizedBox(
-                      width: screenSize.width / 4,
+                      width: value != Btn.n0
+                          ? screenSize.width / 4
+                          : screenSize.width / 2,
                       height: screenSize.width / 5,
                       child: buildButtton(value),
                     ),
