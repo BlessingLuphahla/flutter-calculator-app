@@ -9,7 +9,7 @@ class ReddDrawer extends StatelessWidget {
           return Color.fromARGB(255, 255, 255, 255);
         }),
         backgroundColor: WidgetStateColor.resolveWith((_) {
-          return Colors.purple;
+          return Colors.red;
         }));
   }
 
@@ -56,7 +56,7 @@ class ReddDrawer extends StatelessWidget {
           const Text(
             'contact the developer',
             style: TextStyle(
-                color: Colors.purple,
+                color: Colors.red,
                 fontWeight: FontWeight.w500,
                 fontSize: 20),
           )
