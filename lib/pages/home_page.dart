@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Container(
-                color: Colors.transparent,
+                width: screenSize.width,
                 padding: EdgeInsets.all(16),
                 alignment: Alignment.bottomRight,
                 child: Text(
