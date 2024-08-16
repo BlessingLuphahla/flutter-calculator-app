@@ -19,6 +19,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
+    void clearAll() {
+      setState(() {
+        number1 = '';
+        operand = '';
+        number2 = '';
+      });
+    }
+
     void appendValue(value) {
       if (![Btn.del, Btn.clr, Btn.calculate].contains(value)) {
         if (value != Btn.dot && int.tryParse(value) == null) {
@@ -54,19 +62,81 @@ class _HomePageState extends State<HomePage> {
       ;
     }
 
+    covertToPercentage() {
+      setState(
+        () {
+          if (number1.isNotEmpty && operand.isNotEmpty && number2.isNotEmpty) {}
+          if (operand.isNotEmpty) return;
+
+          final number = double.parse(number1);
+
+          clearAll();
+          number1 = '${number / 100}';
+        },
+      );
+    }
+
+    void calculate() {
+      if (number1.isEmpty) return;
+      if (number2.isEmpty) return;
+      if (operand.isEmpty) return;
+
+      double num1 = double.parse(number1);
+      double num2 = double.parse(number2);
+
+      var result = 0.0;
+
+
+      switch (operand) {
+        case Btn.add:
+          result = num1 + num2;
+          break;
+        case Btn.subtract:
+          result = num1 - num2;
+          break;
+        case Btn.multiply:
+          result = num1 * num2;
+          break;
+        case Btn.divide:
+          result = num1 / num2;
+          break;
+        default:
+      }
+
+      setState(() {
+        number1 = result.toString();
+        if (number1.endsWith('.0')) {
+          number1 = number1.substring(0, number1.length - 2);
+        }
+
+        number2 = '';
+        operand = '';
+      });
+    }
+
     void onButtonTap(value) {
+      if (value == Btn.del) {
+        delete();
+        return;
+      }
+      ;
+      if (value == Btn.clr) {
+        clearAll();
+        return;
+      }
+      ;
+      if (value == Btn.per) {
+        covertToPercentage();
+        return;
+      }
+      ;
+      if (value == Btn.calculate) {
+        calculate();
+        return;
+      }
+
       setState(() {
         appendValue(value);
-        if (value == Btn.del) {
-          delete();
-          return;
-        } else if (value == Btn.clr) {
-          number1 = '';
-          number2 = '';
-          operand = '';
-          return;
-        } else if (value == Btn.calculate) {
-        }
       });
     }
 
