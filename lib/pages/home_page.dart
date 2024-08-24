@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
     void appendValue(value) {
       if (![Btn.del, Btn.clr, Btn.calculate].contains(value)) {
         if (value != Btn.dot && int.tryParse(value) == null) {
-          // if (operand.isNotEmpty && number2.isNotEmpty) {}
           operand = value;
         } else if (number1.isEmpty || operand.isEmpty) {
           if (value == Btn.dot && number1.contains(Btn.dot)) return;
