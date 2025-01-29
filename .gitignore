@@ -7,3 +7,4 @@ test
 .flutter-plugins-dependencies
 pubspec.lock
 linux/flutter/generated_plugin_registrant.cc
+pubspec.lock
